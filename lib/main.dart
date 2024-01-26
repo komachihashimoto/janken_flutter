@@ -73,9 +73,52 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _chooseJankenText,
-        child: const Icon(Icons.add),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: () {
+              setState(() {
+                jankenText = '✊';
+              });
+              },
+            child: const Text(
+              '✊',
+              style: TextStyle(fontSize: 30),
+            ),
+          ),
+          const SizedBox(
+            width: 16,
+          ),
+          FloatingActionButton(
+            onPressed: () {
+              setState(() {
+                jankenText = '✌';
+              });
+            },
+            child: const Text(
+              '✌',
+              style: TextStyle(fontSize: 30),
+            ),
+          ),
+          const SizedBox(
+            width: 16,
+          ),
+          FloatingActionButton(
+            onPressed: () {
+              setState(() {
+                jankenText = '✋';
+              });
+            },
+            child: const Text(
+              '✋',
+              style: TextStyle(fontSize: 30),
+            ),
+          ),
+          const SizedBox(
+            width: 16,
+          ),
+        ],
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
