@@ -37,14 +37,14 @@ class _MyHomePageState extends State<MyHomePage> {
   String myjankenText = '✊';
   String computerJankenText = '✊';
 
-  List<String> jankenList = ['✌','✊','✋'];
+  List<Hand> jankenList = [Hand.rock, Hand.scissors, Hand.paper];
 
   void _chooseComputerText() {
     final random = Random();
     final randomNumber = random.nextInt(3);
-    final hand = jankenList[randomNumber];
+    final hand = Hand.values[randomNumber];
     setState(() {
-      computerJankenText = hand;
+      computerJankenText = hand.text;
     });
   }
 
@@ -87,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
           FloatingActionButton(
             onPressed: () {
               setState(() {
-                myjankenText = '✊';
+                myjankenText = Hand.rock.text;
               });
               _chooseComputerText();
               },
@@ -102,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
           FloatingActionButton(
             onPressed: () {
               setState(() {
-                myjankenText = '✌';
+                myjankenText = Hand.scissors.text;
               });
               _chooseComputerText();
             },
@@ -117,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
           FloatingActionButton(
             onPressed: () {
               setState(() {
-                myjankenText = '✋';
+                myjankenText = Hand.paper.text;
               });
               _chooseComputerText();
             },
@@ -132,5 +132,22 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+}
+
+enum Hand {
+  rock,
+  scissors,
+  paper;
+
+  String get text {
+    switch (this) {
+      case Hand.rock:
+        return '✊';
+      case Hand.scissors:
+        return '✌';
+      case Hand.paper:
+        return '✋';
+    }
   }
 }
