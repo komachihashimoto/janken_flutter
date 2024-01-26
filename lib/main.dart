@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -32,11 +34,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String jankenText = '✊';
+  String myjankenText = '✊';
+  String computerJankenText = '✊';
 
-  void _chooseJankenText() {
+  List<String> jankenList = ['✌','✊','✋'];
+
+  void _chooseComputerText() {
+    final random = Random();
+    final randomNumber = random.nextInt(3);
+    final hand = jankenList[randomNumber];
     setState(() {
-      jankenText = '✋';
+      computerJankenText = hand;
     });
   }
 
@@ -56,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(fontSize: 30),
             ),
             Text(
-              '✌',
+              computerJankenText,
               style: TextStyle(fontSize: 80),
             ),
             SizedBox (
@@ -67,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(fontSize: 30),
             ),
             Text(
-              jankenText,
+              myjankenText,
               style: TextStyle(fontSize: 170),
             ),
           ],
@@ -79,8 +87,9 @@ class _MyHomePageState extends State<MyHomePage> {
           FloatingActionButton(
             onPressed: () {
               setState(() {
-                jankenText = '✊';
+                myjankenText = '✊';
               });
+              _chooseComputerText();
               },
             child: const Text(
               '✊',
@@ -93,8 +102,9 @@ class _MyHomePageState extends State<MyHomePage> {
           FloatingActionButton(
             onPressed: () {
               setState(() {
-                jankenText = '✌';
+                myjankenText = '✌';
               });
+              _chooseComputerText();
             },
             child: const Text(
               '✌',
@@ -107,8 +117,9 @@ class _MyHomePageState extends State<MyHomePage> {
           FloatingActionButton(
             onPressed: () {
               setState(() {
-                jankenText = '✋';
+                myjankenText = '✋';
               });
+              _chooseComputerText();
             },
             child: const Text(
               '✋',
