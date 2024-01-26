@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   List<Hand> jankenList = [Hand.rock, Hand.scissors, Hand.paper];
 
-  void _chooseComputerText() {
+  void chooseComputerText() {
     final random = Random();
     final randomNumber = random.nextInt(3);
     final hand = Hand.values[randomNumber];
@@ -89,8 +89,8 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(fontSize: 30),
             ),
             Text(
-              myHand?.text ?? '?',
-              style: TextStyle(fontSize: 30),
+              computerHand?.text ?? '?',
+              style: TextStyle(fontSize: 100),
             ),
             SizedBox (
               height: 80,
@@ -121,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
               setState(() {
                 myHand = Hand.rock;
               });
-              _chooseComputerText();
+              chooseComputerText();
               },
             child: const Text(
               '✊',
@@ -136,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
               setState(() {
                 myHand = Hand.scissors;
               });
-              _chooseComputerText();
+              chooseComputerText();
             },
             child: const Text(
               '✌',
@@ -151,7 +151,7 @@ class _MyHomePageState extends State<MyHomePage> {
               setState(() {
                 myHand = Hand.paper;
               });
-              _chooseComputerText();
+              chooseComputerText();
             },
             child: const Text(
               '✋',
