@@ -34,8 +34,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String myjankenText = '✊';
-  String computerJankenText = '✊';
+  Hand? myHand;
+  Hand? computerHand;
+
+  Result? result;
 
   List<Hand> jankenList = [Hand.rock, Hand.scissors, Hand.paper];
 
@@ -44,7 +46,30 @@ class _MyHomePageState extends State<MyHomePage> {
     final randomNumber = random.nextInt(3);
     final hand = Hand.values[randomNumber];
     setState(() {
-      computerJankenText = hand.text;
+      computerHand = hand;
+    });
+    decideResult();
+  }
+
+  void decideResult() {
+    if (myHand == null || computerHand == null) {
+      return;
+    }
+    final Result result;
+
+    if (myHand == computerHand) {
+      result = Result.draw;
+    } else if (myHand == Hand.rock && computerHand == Hand.scissors) {
+      result = Result.win;
+    } else if (myHand == Hand.scissors && computerHand == Hand.paper) {
+      result = Result.win;
+    } else if (myHand == Hand.paper && computerHand == Hand.rock) {
+      result = Result.win;
+    } else {
+      result = Result.lose;
+    }
+    setState(() {
+      this.result = result;
     });
   }
 
@@ -64,8 +89,15 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(fontSize: 30),
             ),
             Text(
-              computerJankenText,
-              style: TextStyle(fontSize: 80),
+              myHand?.text ?? '?',
+              style: TextStyle(fontSize: 30),
+            ),
+            SizedBox (
+              height: 80,
+            ),
+            Text(
+              result?.text ?? '?',
+              style: TextStyle(fontSize: 30),
             ),
             SizedBox (
               height: 80,
@@ -75,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(fontSize: 30),
             ),
             Text(
-              myjankenText,
+              myHand?.text ?? '?',
               style: TextStyle(fontSize: 170),
             ),
           ],
@@ -87,7 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
           FloatingActionButton(
             onPressed: () {
               setState(() {
-                myjankenText = Hand.rock.text;
+                myHand = Hand.rock;
               });
               _chooseComputerText();
               },
@@ -102,7 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
           FloatingActionButton(
             onPressed: () {
               setState(() {
-                myjankenText = Hand.scissors.text;
+                myHand = Hand.scissors;
               });
               _chooseComputerText();
             },
@@ -117,7 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
           FloatingActionButton(
             onPressed: () {
               setState(() {
-                myjankenText = Hand.paper.text;
+                myHand = Hand.paper;
               });
               _chooseComputerText();
             },
@@ -148,6 +180,23 @@ enum Hand {
         return '✌';
       case Hand.paper:
         return '✋';
+    }
+  }
+}
+
+enum Result {
+  win,
+  lose,
+  draw;
+
+  String get text {
+    switch (this) {
+      case Result.win:
+        return '勝ち';
+      case Result.lose:
+        return '負け';
+      case Result.draw:
+        return 'あいこ';
     }
   }
 }
